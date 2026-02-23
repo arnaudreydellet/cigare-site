@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Smokewood Saloon — Cigares · Guitares · Chasse · Live Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tobacco: #8B4A1A;
+    --ochre: #C9852A;
+    --cream: #F2E8D0;
+    --dark: #1C1208;
+    --warm-dark: #2E1A07;
+    --gold: #D4A840;
+    --rust: #A3421A;
+    --smoke: #7A6A54;
+    --parchment: #E8D5A8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--cream);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    background: rgba(28, 18, 8, 0.95);
+    border-bottom: 2px solid var(--tobacco);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    color: var(--parchment);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(139,74,26,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(163,66,26,0.2) 0%, transparent 50%),
+      linear-gradient(160deg, #1C1208 0%, #2E1A07 50%, #1C0A04 100%);
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-badge {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    border: 1px solid var(--tobacco);
+    padding: 0.4rem 1.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-divider {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 3rem;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--parchment);
+    max-width: 540px;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s 0.65s ease both;
+  }
+
+  .btn-primary {
+    background: var(--tobacco);
+    color: var(--cream);
+    border: 2px solid var(--tobacco);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary:hover { color: var(--dark); border-color: var(--gold); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--parchment);
+    border: 2px solid var(--smoke);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* DECORATIVE ELEMENTS */
+  .ornament {
+    color: var(--tobacco);
+    font-size: 1.5rem;
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 6rem 2rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--tobacco);
+    margin-bottom: 3rem;
+  }
+
+  /* CIGARES */
+  #cigares {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--warm-dark) 100%);
+    border-top: 1px solid rgba(139,74,26,0.3);
+  }
+
+  .cigares-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .cigares-intro p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--parchment);
+    margin-bottom: 1.5rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .product-card {
+    background: rgba(139,74,26,0.1);
+    border: 1px solid rgba(139,74,26,0.3);
+    padding: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s;
+  }
+
+  .product-card:hover::before { height: 100%; }
+  .product-card:hover { border-color: rgba(212,168,64,0.4); background: rgba(139,74,26,0.18); }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--cream);
+  }
+
+  .product-origin {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 0.8rem;
+  }
+
+  .product-desc {
+    font-size: 0.88rem;
+    color: var(--smoke);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .product-price {
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+
+  .add-cart {
+    margin-top: 1rem;
+    display: inline-block;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tobacco);
+    border: 1px solid var(--tobacco);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    background: none;
+    transition: all 0.3s;
+    width: 100%;
+    text-align: center;
+  }
+
+  .add-cart:hover { background: var(--tobacco); color: var(--cream); }
+
+  /* GUITARES */
+  #guitares {
+    background: var(--warm-dark);
+    border-top: 1px solid rgba(139,74,26,0.3);
+  }
+
+  .guitares-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .guitar-card {
+    background: rgba(28,18,8,0.8);
+    border: 1px solid rgba(139,74,26,0.25);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.35s;
+    position: relative;
+  }
+
+  .guitar-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  .guitar-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    filter: saturate(0) brightness(0.7);
+    transition: filter 0.3s;
+  }
+
+  .guitar-card:hover .guitar-icon { filter: none; }
+
+  .guitar-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .guitar-brand {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 1rem;
+  }
+
+  .guitar-desc {
+    font-size: 0.87rem;
+    color: var(--smoke);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .guitar-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  /* MUSIQUE */
+  #musique {
+    background: linear-gradient(160deg, #0E0805 0%, #1C1208 60%, #0E0805 100%);
+    border-top: 1px solid rgba(139,74,26,0.3);
+    overflow: hidden;
+  }
+
+  .musique-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .musique-visual {
+    position: relative;
+    text-align: center;
+  }
+
+  .vinyl {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center,
+      #1a0a02 0%, #2a1005 25%, #1a0a02 26%, #2a1005 50%,
+      #1a0a02 51%, #2a1005 75%, #1a0a02 76%, #3a1a08 100%
+    );
+    border: 3px solid rgba(139,74,26,0.4);
+    margin: 0 auto;
+    position: relative;
+    animation: spin 12s linear infinite;
+    box-shadow: 0 0 60px rgba(139,74,26,0.3);
+  }
+
+  .vinyl::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: var(--tobacco);
+    border: 2px solid var(--gold);
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .musique-info .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+
+  .musique-info p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--parchment);
+    margin-bottom: 1.5rem;
+  }
+
+  .event-list {
+    margin: 2rem 0;
+    list-style: none;
+  }
+
+  .event-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(139,74,26,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .event-date {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--ochre);
+    min-width: 90px;
+  }
+
+  .event-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--cream);
+    flex: 1;
+  }
+
+  .event-badge {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.7rem;
+    border: 1px solid currentColor;
+  }
+
+  .badge-open { color: #7ab87a; }
+  .badge-full { color: var(--rust); }
+  .badge-soon { color: var(--ochre); }
+
+  /* RESERVATION FORM */
+  .reservation-form {
+    background: rgba(139,74,26,0.08);
+    border: 1px solid rgba(139,74,26,0.3);
+    padding: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: var(--gold);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-field.full { grid-column: 1 / -1; }
+
+  label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  input, select, textarea {
+    background: rgba(28,18,8,0.7);
+    border: 1px solid rgba(139,74,26,0.4);
+    color: var(--cream);
+    padding: 0.75rem 1rem;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+  }
+
+  select option { background: var(--warm-dark); }
+  textarea { resize: vertical; min-height: 100px; }
+
+  /* CHASSE */
+  #chasse {
+    background: var(--dark);
+    border-top: 1px solid rgba(139,74,26,0.3);
+  }
+
+  .chasse-layout {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .chasse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .chasse-card {
+    background: rgba(28,18,8,0.8);
+    border: 1px solid rgba(139,74,26,0.25);
+    padding: 1.5rem;
+    transition: all 0.3s;
+  }
+
+  .chasse-card:hover {
+    border-color: var(--ochre);
+    background: rgba(139,74,26,0.1);
+  }
+
+  .chasse-tag {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    padding: 0.15rem 0.5rem;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-notice {
+    background: rgba(163,66,26,0.1);
+    border-left: 3px solid var(--rust);
+    padding: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .legal-notice h4 {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-notice p {
+    font-size: 0.82rem;
+    color: var(--smoke);
+    line-height: 1.7;
+  }
+
+  .chasse-info p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--parchment);
+    margin-bottom: 1.2rem;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--warm-dark);
+    border-top: 2px solid var(--tobacco);
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--parchment);
+    margin-bottom: 1rem;
+  }
+
+  .contact-details {
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .contact-details li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(139,74,26,0.25);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    color: var(--parchment);
+    display: flex;
+    gap: 1rem;
+  }
+
+  .contact-details span:first-child {
+    color: var(--ochre);
+    min-width: 60px;
+  }
+
+  .contact-form-wrap .form-title { margin-bottom: 1.5rem; }
+
+  /* FOOTER */
+  footer {
+    background: #0A0603;
+    border-top: 1px solid rgba(139,74,26,0.3);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-nav a {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-nav a:hover { color: var(--gold); }
+
+  .footer-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--tobacco);
+    margin: 0 auto 2rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(122,106,84,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PANIER FLOTTANT */
+  .cart-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--tobacco);
+    color: var(--cream);
+    border: none;
+    padding: 1rem 1.5rem;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    z-index: 800;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cart-btn:hover { background: var(--gold); color: var(--dark); }
+
+  .cart-count {
+    background: var(--gold);
+    color: var(--dark);
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+  }
+
+  .cart-btn:hover .cart-count { background: var(--dark); color: var(--gold); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 2rem;
+    background: var(--warm-dark);
+    border: 1px solid var(--gold);
+    color: var(--cream);
+    padding: 0.8rem 1.5rem;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    z-index: 800;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .cigares-layout, .musique-layout, .chasse-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .guitares-layout { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-field.full { grid-column: auto; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .guitares-layout, .product-grid, .chasse-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .vinyl { width: 200px; height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">☽ The Smokewood Saloon</a>
+  <ul class="nav-links">
+    <li><a href="#cigares">Cigares</a></li>
+    <li><a href="#guitares">Guitares</a></li>
+    <li><a href="#musique">Live Music</a></li>
+    <li><a href="#chasse">Chasse</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Saint-Étienne · Fondé en 1973</div>
+  <h1 class="hero-title">The Smokewood<em>Saloon</em></h1>
+  <p class="hero-subtitle"><span class="ornament">✦</span> Cigares · Guitares · Chasse · Live Music <span class="ornament">✦</span></p>
+  <div class="hero-divider"></div>
+  <p class="hero-tagline">Un lieu unique où le tabac de qualité rencontre la lutherie d'exception, le grand gibier et les nuits de blues authentique.</p>
+  <div class="hero-cta-group">
+    <a href="#cigares" class="btn-primary"><span>Explorer la boutique</span></a>
+    <a href="#musique" class="btn-outline">Réserver une soirée</a>
+  </div>
+</section>
+
+<!-- CIGARES -->
+<section id="cigares">
+  <div class="section-inner">
+    <div class="cigares-layout">
+      <div class="cigares-intro reveal">
+        <span class="section-label">✦ Collection</span>
+        <h2 class="section-title">Les <em style="font-style:italic; color:var(--gold)">Cigares</em></h2>
+        <div class="section-rule"></div>
+        <p>Sélectionnés à la main chez les meilleurs producteurs de Cuba, du Nicaragua et de la République Dominicaine, nos cigares sont conservés dans des humidors à température et hygrométrie contrôlées.</p>
+        <p>Du coronas délicat pour l'amateur curieux au double corona robuste pour le connaisseur, chaque pièce est une invitation au voyage.</p>
+        <a href="#contact" class="btn-primary" style="margin-top:1rem;display:inline-block"><span>Commander sur mesure</span></a>
+      </div>
+      <div class="reveal" style="transition-delay:0.2s">
+        <div class="product-grid">
+          <div class="product-card">
+            <div class="product-name">Cohiba Siglo VI</div>
+            <div class="product-origin">Cuba · Habanos S.A.</div>
+            <div class="product-desc">Notes de bois, café torréfié et cuir. Long en bouche, d'une élégance rare.</div>
+            <div class="product-price">38,00 €</div>
+            <button class="add-cart" onclick="addToCart('Cohiba Siglo VI')">Ajouter au panier</button>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Padron 1964 Maduro</div>
+            <div class="product-origin">Nicaragua</div>
+            <div class="product-desc">Complexe, chocolaté, aux reflets presque noirs. Icône de la Nicaraguita.</div>
+            <div class="product-price">22,00 €</div>
+            <button class="add-cart" onclick="addToCart('Padron 1964 Maduro')">Ajouter au panier</button>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Arturo Fuente Opus X</div>
+            <div class="product-origin">République Dominicaine</div>
+            <div class="product-desc">Corsé, épicé, avec une finale longue aux notes de poivre rouge.</div>
+            <div class="product-price">45,00 €</div>
+            <button class="add-cart" onclick="addToCart('Arturo Fuente Opus X')">Ajouter au panier</button>
+          </div>
+          <div class="product-card">
+            <div class="product-name">Romeo y Julieta No.2</div>
+            <div class="product-origin">Cuba · Format Torpille</div>
+            <div class="product-desc">Équilibré, floral et boisé. Idéal pour débuter la découverte.</div>
+            <div class="product-price">16,50 €</div>
+            <button class="add-cart" onclick="addToCart('Romeo y Julieta No.2')">Ajouter au panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUITARES -->
+<section id="guitares">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">✦ Lutherie</span>
+      <h2 class="section-title">Les <em style="font-style:italic; color:var(--gold)">Guitares</em></h2>
+      <div class="section-rule"></div>
+      <p style="max-width:580px; color:var(--parchment); line-height:1.9; font-size:1.05rem;">Des instruments d'époque et contemporains, sélectionnés pour leur voix, leur âme et leur histoire. Chaque guitare dans notre collection a quelque chose à raconter.</p>
+    </div>
+    <div class="guitares-layout">
+      <div class="guitar-card reveal" style="transition-delay:0.1s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Gibson Les Paul '59 Reissue</div>
+        <div class="guitar-brand">Gibson · USA · Custom Shop</div>
+        <div class="guitar-desc">La légendaire Les Paul reissue en acajou massif, table érable flammé, micros Burstbucker. Un son chaud, épais, qui sonne comme les disques de 1959.</div>
+        <div class="guitar-price">4 200 €</div>
+        <button class="add-cart" onclick="addToCart('Gibson Les Paul Reissue')">Ajouter au panier</button>
+      </div>
+      <div class="guitar-card reveal" style="transition-delay:0.2s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Fender Stratocaster 1974</div>
+        <div class="guitar-brand">Fender · Vintage USA</div>
+        <div class="guitar-desc">Strat originale 1974, corps en frêne, manche érable, finish sunburst trois tons. Une pièce de collection au toucher irremplaçable.</div>
+        <div class="guitar-price">6 800 €</div>
+        <button class="add-cart" onclick="addToCart('Fender Stratocaster 1974')">Ajouter au panier</button>
+      </div>
+      <div class="guitar-card reveal" style="transition-delay:0.3s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Martin D-28 Authentique</div>
+        <div class="guitar-brand">Martin & Co. · 1937 Reissue</div>
+        <div class="guitar-desc">La dreadnought folk par excellence. Épicéa de Sitka, palissandre d'Inde. Un volume et une dynamique extraordinaires.</div>
+        <div class="guitar-price">3 150 €</div>
+        <button class="add-cart" onclick="addToCart('Martin D-28 Authentique')">Ajouter au panier</button>
+      </div>
+      <div class="guitar-card reveal" style="transition-delay:0.1s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Gretsch Country Gentleman</div>
+        <div class="guitar-brand">Gretsch · Electromatic</div>
+        <div class="guitar-desc">Hollow body iconic, micros Filter'Tron, vibrato Bigsby. Le twang profond de la country et du rockabilly.</div>
+        <div class="guitar-price">1 890 €</div>
+        <button class="add-cart" onclick="addToCart('Gretsch Country Gentleman')">Ajouter au panier</button>
+      </div>
+      <div class="guitar-card reveal" style="transition-delay:0.2s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Telecaster Custom '72</div>
+        <div class="guitar-brand">Fender · Classic Series</div>
+        <div class="guitar-desc">Tele avec double micros Humbucker Wide Range, corps en aulne. Le meilleur des deux mondes, brut et piquant.</div>
+        <div class="guitar-price">1 340 €</div>
+        <button class="add-cart" onclick="addToCart('Telecaster Custom 72')">Ajouter au panier</button>
+      </div>
+      <div class="guitar-card reveal" style="transition-delay:0.3s">
+        <span class="guitar-icon">🎸</span>
+        <div class="guitar-name">Guild D-55 NT</div>
+        <div class="guitar-brand">Guild Guitars · Jumbo Folk</div>
+        <div class="guitar-desc">La Guild jumbo, épicéa Engelmann, dos et éclisses palissandre, finition naturelle. Profonde, riche, mélancolique.</div>
+        <div class="guitar-price">2 490 €</div>
+        <button class="add-cart" onclick="addToCart('Guild D-55 NT')">Ajouter au panier</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIQUE LIVE -->
+<section id="musique">
+  <div class="section-inner">
+    <div class="musique-layout">
+      <div class="musique-visual reveal">
+        <div class="vinyl"></div>
+        <p style="margin-top:2rem; font-family:'Special Elite', cursive; font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--smoke);">Live every Friday & Saturday</p>
+      </div>
+      <div class="musique-info reveal" style="transition-delay:0.2s">
+        <span class="section-label">✦ Live Music</span>
+        <h2 class="section-title">Réserver une <em style="font-style:italic; color:var(--gold)">Soirée</em></h2>
+        <div class="section-rule"></div>
+        <p>Chaque vendredi et samedi soir, The Smokewood Saloon accueille des guitaristes et groupes de blues, rock et soul pour des sessions live intimes, dans l'ambiance fumée et chaleureuse de notre espace concerts.</p>
+        <p>Tables disponibles à la réservation. Cigares et boissons servis pendant le show.</p>
+
+        <ul class="event-list">
+          <li>
+            <span class="event-date">Ven 28 Fév</span>
+            <span class="event-name">The Dusty Riders — Blues Trio</span>
+            <span class="event-badge badge-open">Disponible</span>
+          </li>
+          <li>
+            <span class="event-date">Sam 01 Mar</span>
+            <span class="event-name">Sonny & The Grooves</span>
+            <span class="event-badge badge-full">Complet</span>
+          </li>
+          <li>
+            <span class="event-date">Ven 07 Mar</span>
+            <span class="event-name">Delta Highway Sessions</span>
+            <span class="event-badge badge-open">Disponible</span>
+          </li>
+          <li>
+            <span class="event-date">Sam 08 Mar</span>
+            <span class="event-name">The Bourbon Street Band</span>
+            <span class="event-badge badge-soon">Bientôt</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FORM RESERVATION -->
+    <div class="reservation-form reveal" style="transition-delay:0.3s; max-width:700px; margin:4rem auto 0;">
+      <div class="form-title">Réserver votre table</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Nom & Prénom</label>
+          <input type="text" placeholder="John Doe">
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" placeholder="john@exemple.com">
+        </div>
+        <div class="form-field">
+          <label>Soirée souhaitée</label>
+          <select>
+            <option>Vendredi 28 Février — The Dusty Riders</option>
+            <option>Vendredi 07 Mars — Delta Highway Sessions</option>
+            <option>Samedi 08 Mars — The Bourbon Street Band</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Nombre de personnes</label>
+          <select>
+            <option>1 personne</option>
+            <option>2 personnes</option>
+            <option>3 personnes</option>
+            <option>4 personnes</option>
+            <option>5 personnes et +</option>
+          </select>
+        </div>
+        <div class="form-field full">
+          <label>Message (optionnel)</label>
+          <textarea placeholder="Occasion spéciale, demande particulière..."></textarea>
+        </div>
+      </div>
+      <button class="btn-primary" style="margin-top:1.5rem; border:none; cursor:pointer; width:100%;" onclick="showToast('Réservation envoyée — Nous vous confirmons par email !')"><span>Confirmer la réservation</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- CHASSE -->
+<section id="chasse">
+  <div class="section-inner">
+    <div class="chasse-layout">
+      <div>
+        <span class="section-label reveal">✦ Armurerie</span>
+        <h2 class="section-title reveal">Armes de <em style="font-style:italic; color:var(--gold)">Chasse</em></h2>
+        <div class="section-rule reveal"></div>
+        <div class="chasse-grid">
+          <div class="chasse-card reveal">
+            <span class="chasse-tag">Fusil</span>
+            <div class="product-name">Browning B725 Hunter</div>
+            <div class="product-origin">Juxtaposé · Cal. 12</div>
+            <div class="product-desc">Boiserie noyer grade 2, mécanisme Invector-DS, crosse anglaise. Élégance et fiabilité pour la chasse au gibier à plumes.</div>
+            <div class="product-price">2 350 €</div>
+          </div>
+          <div class="chasse-card reveal" style="transition-delay:0.1s">
+            <span class="chasse-tag">Carabine</span>
+            <div class="product-name">Sako 85 Bavarian</div>
+            <div class="product-origin">Finlande · Cal. .308 Win</div>
+            <div class="product-desc">Crosse bavaroise en noyer huppé, canon martelé froid. Précision et robustesse pour le grand gibier.</div>
+            <div class="product-price">3 100 €</div>
+          </div>
+          <div class="chasse-card reveal" style="transition-delay:0.15s">
+            <span class="chasse-tag">Fusil</span>
+            <div class="product-name">Beretta A400 Xcel</div>
+            <div class="product-origin">Superposé · Cal. 12</div>
+            <div class="product-desc">Semi-automatique, technologie Blink. Pour les chasseurs exigeant rapidité et confort sur le terrain.</div>
+            <div class="product-price">1 890 €</div>
+          </div>
+          <div class="chasse-card reveal" style="transition-delay:0.2s">
+            <span class="chasse-tag">Carabine</span>
+            <div class="product-name">Winchester Model 70</div>
+            <div class="product-origin">USA · Cal. 30-06 Sprg</div>
+            <div class="product-desc">Le classique américain intemporel. Verrou contrôlé, gâchette réglable MOA. Fiabilité légendaire.</div>
+            <div class="product-price">1 650 €</div>
+          </div>
+        </div>
+      </div>
+      <div class="chasse-info reveal" style="transition-delay:0.25s">
+        <p>Notre département armurerie est tenu par un armurier diplômé d'état. Nous proposons à la vente des fusils de chasse et carabines neufs et d'occasion, ainsi qu'un service de réparation et d'entretien.</p>
+        <p>L'acquisition d'une arme de chasse de catégorie C est possible sur présentation du permis de chasser valide et des documents d'identité requis par la législation française.</p>
+        <p>Nous conseillons chaque client dans le choix de son arme selon sa pratique : chasse à la palombe, au grand gibier, à la bécasse ou en plaine.</p>
+        <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1rem;"><span>Demander un devis</span></a>
+
+        <div class="legal-notice">
+          <h4>⚠ Mentions légales obligatoires</h4>
+          <p>La vente d'armes de catégorie C est soumise à la présentation d'un permis de chasser valide et d'une pièce d'identité. Les armes de catégorie B nécessitent une autorisation préfectorale. Toute vente est enregistrée conformément au Code de la Sécurité Intérieure. Vente interdite aux mineurs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <span class="section-label">✦ Nous trouver</span>
+        <h2 class="section-title">Venez nous <em style="font-style:italic; color:var(--gold)">Rendre visite</em></h2>
+        <div class="section-rule"></div>
+        <p>The Smokewood Saloon est ouvert six jours sur sept dans le cœur de Saint-Étienne. Venez fumer, jouer, écouter et choisir votre prochaine pièce.</p>
+        <ul class="contact-details">
+          <li><span>Adresse</span><span>12, rue des Forges — 42000 Saint-Étienne</span></li>
+          <li><span>Tél.</span><span>04 77 XX XX XX</span></li>
+          <li><span>Email</span><span>contact@smokewood-saloon.fr</span></li>
+          <li><span>Horaires</span><span>Mar–Sam : 10h–19h · Dim : 10h–13h</span></li>
+          <li><span>Live</span><span>Ven & Sam à partir de 20h30</span></li>
+        </ul>
+      </div>
+      <div class="contact-form-wrap reveal" style="transition-delay:0.2s">
+        <div class="reservation-form">
+          <div class="form-title">Envoyer un message</div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Nom</label>
+              <input type="text" placeholder="Votre nom">
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" placeholder="Votre email">
+            </div>
+            <div class="form-field full">
+              <label>Sujet</label>
+              <select>
+                <option>Commande cigares</option>
+                <option>Achat guitare</option>
+                <option>Réservation concert</option>
+                <option>Demande armurerie</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label>Message</label>
+              <textarea placeholder="Votre message..."></textarea>
+            </div>
+          </div>
+          <button class="btn-primary" style="margin-top:1.5rem; border:none; cursor:pointer; width:100%;" onclick="showToast('Message envoyé — Nous vous répondons sous 24h !')"><span>Envoyer le message</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">The Smokewood Saloon</div>
+  <div class="footer-tagline">Saint-Étienne · Depuis 1973</div>
+  <nav class="footer-nav">
+    <a href="#cigares">Cigares</a>
+    <a href="#guitares">Guitares</a>
+    <a href="#musique">Live Music</a>
+    <a href="#chasse">Chasse</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">© 2025 The Smokewood Saloon · Tous droits réservés · Mentions légales · Vente d'armes soumise à réglementation</p>
+</footer>
+
+<!-- PANIER FLOTTANT -->
+<button class="cart-btn" onclick="toggleCart()">
+  🛒 Panier <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Panier
+  let cartItems = [];
+  let cartCount = 0;
+
+  function addToCart(name) {
+    cartCount++;
+    cartItems.push(name);
+    document.getElementById('cartCount').textContent = cartCount;
+    showToast('Ajouté au panier : ' + name);
+  }
+
+  function toggleCart() {
+    if (cartItems.length === 0) {
+      showToast('Votre panier est vide');
+      return;
+    }
+    showToast('Panier : ' + cartItems.join(', '));
+  }
+
+  // Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
